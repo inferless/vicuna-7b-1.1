@@ -1,16 +1,10 @@
-import os
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, logging
-import torch
-import argparse
-from huggingface_hub import snapshot_download
-
-model_name_or_path = "lmsys/vicuna-7b-v1.1"
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
 class InferlessPythonModel:
     def initialize(self):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path)
-
+        model_id = "lmsys/vicuna-7b-v1.1"
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
+        self.model = AutoModelForCausalLM.from_pretrained(model_id,device_map="cuda")
 
     def infer(self, inputs):
         prompt = inputs["prompt"]
@@ -30,5 +24,4 @@ class InferlessPythonModel:
         return {"generated_text": generated_text}
 
     def finalize(self):
-        self.tokenizer = None
         self.model = None
