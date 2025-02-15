@@ -40,6 +40,6 @@ optional:
   input_file_name: input.json
   output_file_name: output.json
   runtime_file_name: inferless-runtime-config.yaml
-model_url: https://github.com/inferless/Vicuna-7b-1.1.git
+model_url: https://github.com/inferless/vicuna-7b-1.1.git
 provider: GITHUB
 io_schema: true
