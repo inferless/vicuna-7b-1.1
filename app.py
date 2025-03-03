@@ -1,8 +1,12 @@
+import os
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"]='1'
+from huggingface_hub import snapshot_download
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
 class InferlessPythonModel:
     def initialize(self):
         model_id = "lmsys/vicuna-7b-v1.1"
+        snapshot_download(repo_id=model_id,allow_patterns=["*.bin"])
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         self.model = AutoModelForCausalLM.from_pretrained(model_id,device_map="cuda")
 
